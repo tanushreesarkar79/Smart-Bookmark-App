@@ -29,31 +29,31 @@ export default function Dashboard() {
   }, []);
 
   const initialize = async () => {
-   // console.log("Initializing dashboard...");
+   
     await getUser();
   };
 
   const getUser = async () => {
-  //  console.log("Fetching user...");
+
 
     const { data, error } = await supabase.auth.getUser();
 
     if (error) {
-    //  console.error("User fetch error:", error);
+    
       return;
     }
 
     if (!data.user) {
-    //  console.log("No user found. Redirecting...");
+    
       router.push("/");
     } else {
-    //  console.log("User loaded:", data.user);
+    
       setUser(data.user);
     }
   };
 
   const fetchBookmarks = async (userId: string) => {
-  //  console.log("Fetching bookmarks...");
+
 
     const { data, error } = await supabase
       .from("bookmarks")
@@ -62,15 +62,15 @@ export default function Dashboard() {
       .order("created_at", { ascending: false });
 
     if (error) {
-    //  console.error("Bookmark fetch error:", error);
+    
       return;
     }
 
     if (!data || data.length === 0) {
-    //  console.log("No bookmarks found.");
+    
       setBookmarks([]);
     } else {
-    //  console.log("Bookmarks fetched:", data);
+   
       setBookmarks(data as Bookmark[]);
     }
   };
@@ -81,11 +81,11 @@ useEffect(() => {
   if (!user) return;
 
   if (document.visibilityState === "visible") {
-  //  console.log("🔥 Tab is ACTIVE - Refreshing data");
+  
 
     await fetchBookmarks(user.id);
   } else {
-  //  console.log("😴 Tab is INACTIVE");
+
   }
 };
 
@@ -107,9 +107,7 @@ useEffect(() => {
   useEffect(() => {
     if (!user) return;
 
-  //  console.log("Setting up realtime for user:", user.id);
-
-    // First load data
+  
     fetchBookmarks(user.id);
 
     const channel = supabase
@@ -123,7 +121,7 @@ useEffect(() => {
           filter: `user_id=eq.${user.id}`,
         },
         (payload) => {
-        //  console.log("Realtime event received:", payload);
+        
 
           if (payload.eventType === "INSERT") {
             setBookmarks((prev) => [
@@ -150,11 +148,11 @@ useEffect(() => {
         }
       )
       .subscribe((status) => {
-    //    console.log("Realtime status:", status);
+   
       });
 
     return () => {
-    //  console.log("Removing realtime channel");
+
       supabase.removeChannel(channel);
     };
   }, [user]);
@@ -176,7 +174,7 @@ useEffect(() => {
   const saveBookmark = async () => {
   if (!title || !url || !user) return;
 
- // console.log("Saving bookmark...");
+
 
   if (editingBookmark) {
     const { data, error } = await supabase
@@ -187,11 +185,11 @@ useEffect(() => {
       .single();
 
     if (error) {
-      // console.error("Update error:", error);
+   
       return;
     }
 
-   // console.log("Bookmark updated:", data);
+  
 
     setBookmarks((prev) =>
       prev.map((b) =>
@@ -212,11 +210,10 @@ useEffect(() => {
       .single();
 
     if (error) {
-      //console.error("Insert error:", error);
+      
       return;
     }
 
-//    console.log("Bookmark inserted:", data);
 
     setBookmarks((prev) => [
       data as Bookmark,
@@ -238,7 +235,7 @@ useEffect(() => {
     .eq("id", id);
 
   if (error) {
-    // console.error("Delete error:", error);
+   
     return;
   }
   setBookmarks((prev) =>
@@ -288,7 +285,7 @@ useEffect(() => {
       {bookmarks.length === 0 ? (
         <div className="text-center py-20 text-slate-400">
           <p className="text-lg">No bookmarks yet</p>
-          <p className="text-sm mt-2">Click “Add Bookmark” to get started 🚀</p>
+          <p className="text-sm mt-2">Click on “Add Bookmark”</p>
         </div>
       ) : (
         <div className="overflow-hidden rounded-xl border border-slate-200">
@@ -347,7 +344,7 @@ useEffect(() => {
         </div>
       )}
 
-      {/* Modal */}
+
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl shadow-2xl w-96 p-6 animate-fadeIn">

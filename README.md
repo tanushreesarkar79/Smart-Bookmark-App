@@ -5,7 +5,7 @@ A multi-tab bookmark management module that ensures **real-time synchronization 
 
 ---
 
-## 🐞 Problem Faced
+##  Problem Faced
 
 When implementing the bookmark feature:
 
@@ -13,7 +13,7 @@ When implementing the bookmark feature:
 
 ---
 
-## 🔍 Root Cause
+##  Root Cause
 
 Bookmark data was fetched only during the component's initial render.
 
@@ -21,7 +21,7 @@ While switching tabs, React preserved the existing state and did not trigger a r
 
 ---
 
-## ✅ Solution Implemented
+##  Solution Implemented
 
 The fix was implemented using active tab detection.
 

@@ -1,9 +1,5 @@
-# 📌 Bookmark Synchronization System
+#  Smart Bookmark App
 
-![React](https://img.shields.io/badge/Frontend-React-blue)
-![Status](https://img.shields.io/badge/Status-Stable-success)
-![Bug Fix](https://img.shields.io/badge/Bug-Fixed-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
 
 A multi-tab bookmark management module that ensures **real-time synchronization of bookmarks across tabs without requiring page refresh**.
 
